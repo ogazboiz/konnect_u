@@ -1,4 +1,4 @@
-import { Search, ChevronDown } from "lucide-react"
+import { Search } from "lucide-react"
 
 export default function Header() {
   return (
