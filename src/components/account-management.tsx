@@ -5,7 +5,6 @@ import { ChevronRight } from "lucide-react";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-
 interface User {
   id: string;
   name: string;
@@ -20,7 +19,6 @@ export default function AccountManagement() {
   const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
 
   useEffect(() => {
     setLoading(true);
@@ -93,38 +91,43 @@ export default function AccountManagement() {
   };
 
   return (
-    <Card className="bg-white rounded-lg shadow-sm border-0">
+    <Card className="bg-white rounded-lg shadow-sm border-0 opacity-0 animate-fade-in" style={{ animationDelay: "0.1s" }}>
       <CardHeader className="flex flex-row items-center justify-between pb-4">
-        <CardTitle className="text-xl sm:text-2xl font-bold text-[#1A237E]">
+        <CardTitle className="text-xl sm:text-2xl font-bold text-[#1A237E] opacity-0 animate-fade-in" style={{ animationDelay: "0.2s" }}>
           Account Management
         </CardTitle>
-        <a href="#" className="text-xs sm:text-sm text-green-600 flex items-center whitespace-nowrap">
+        <a href="#" className="text-xs sm:text-sm text-green-600 flex items-center whitespace-nowrap opacity-0 animate-fade-in" style={{ animationDelay: "0.3s" }}>
           View More
-          <ChevronRight className="h-4 w-4 ml-1" />
+          <ChevronRight className="h-4 w-4 ml-1 opacity-0 animate-fade-in" style={{ animationDelay: "0.4s" }} />
         </a>
       </CardHeader>
       <CardContent className="p-4 sm:p-6">
         {loading ? (
-          <div className="text-center text-[#1A237E] py-4">Loading users...</div>
+          <div className="text-center text-[#1A237E] py-4 opacity-0 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+            Loading users...
+          </div>
         ) : error ? (
-          <div className="text-center text-red-600 py-4">{error}</div>
+          <div className="text-center text-red-600 py-4 opacity-0 animate-fade-in" style={{ animationDelay: "0.5s" }}>
+            {error}
+          </div>
         ) : (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto opacity-0 animate-fade-in" style={{ animationDelay: "0.5s" }}>
             <table className="w-full min-w-[554px]">
               <thead>
                 <tr className="text-left text-xs sm:text-sm text-[#1A237E]">
-                  <th className="pb-4 font-medium whitespace-nowrap">User ID</th>
-                  <th className="pb-4 font-medium whitespace-nowrap">Name of user</th>
-                  <th className="pb-4 font-medium whitespace-nowrap">User status</th>
-                  <th className="pb-4 font-medium whitespace-nowrap">Status</th>
-                  <th className="pb-4 font-medium whitespace-nowrap pr-4">
+                  <th className="pb-4 font-medium whitespace-nowrap opacity-0 animate-fade-in" style={{ animationDelay: "0.6s" }}>User ID</th>
+                  <th className="pb-4 font-medium whitespace-nowrap opacity-0 animate-fade-in" style={{ animationDelay: "0.7s" }}>Name of user</th>
+                  <th className="pb-4 font-medium whitespace-nowrap opacity-0 animate-fade-in" style={{ animationDelay: "0.8s" }}>User status</th>
+                  <th className="pb-4 font-medium whitespace-nowrap opacity-0 animate-fade-in" style={{ animationDelay: "0.9s" }}>Status</th>
+                  <th className="pb-4 font-medium whitespace-nowrap pr-4 opacity-0 animate-fade-in" style={{ animationDelay: "1s" }}>
                     Admin control
                   </th>
                 </tr>
               </thead>
               <tbody className="text-xs sm:text-sm">
                 {users.map((user, index) => (
-                  <tr key={index} className="border-t border-gray-100">
+                  <tr key={index} className=" opacity-0 animate-fade-in" 
+                      style={{ animationDelay: `${1.1 + index * 0.1}s` }}>
                     <td className="py-4 whitespace-nowrap">{user.id}</td>
                     <td className="py-4 whitespace-nowrap">
                       <div className="flex items-center gap-2">
@@ -133,14 +136,16 @@ export default function AccountManagement() {
                           alt="User avatar"
                           width={16}
                           height={16}
-                          className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0"
+                          className="w-4 h-4 sm:w-5 sm:h-5 flex-shrink-0 opacity-0 animate-bounce-in"
+                          style={{ animationDelay: `${1.15 + index * 0.1}s` }}
                         />
                         {user.name}
                       </div>
                     </td>
                     <td className="py-4 whitespace-nowrap">
                       <div className="flex items-center gap-1">
-                        <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-black flex items-center justify-center flex-shrink-0">
+                        <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-black flex items-center justify-center flex-shrink-0 opacity-0 animate-bounce-in"
+                             style={{ animationDelay: `${1.2 + index * 0.1}s` }}>
                           <svg
                             width="10"
                             height="10"
@@ -164,7 +169,8 @@ export default function AccountManagement() {
                           user.accountStatus === "Activated"
                             ? "bg-[#006A05]"
                             : "bg-[#B80405]"
-                        } text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full flex items-center gap-1 w-fit`}
+                        } text-white text-[10px] sm:text-xs px-2 sm:px-3 py-1 rounded-full flex items-center gap-1 w-fit opacity-0 animate-bounce-in`}
+                        style={{ animationDelay: `${1.25 + index * 0.1}s` }}
                       >
                         <Image
                           src={user.icon}
@@ -179,7 +185,8 @@ export default function AccountManagement() {
                     <td className="py-4 whitespace-nowrap pr-4">
                       <button
                         onClick={() => toggleAccountStatus(user.id)}
-                        className={`${user.buttonColor} text-white text-[10px] sm:text-xs w-full px-3 sm:px-4 py-1 rounded-sm whitespace-nowrap`}
+                        className={`${user.buttonColor} text-white text-[10px] sm:text-xs w-full px-3 sm:px-4 py-1 rounded-sm whitespace-nowrap opacity-0 animate-bounce-in`}
+                        style={{ animationDelay: `${1.3 + index * 0.1}s` }}
                       >
                         {user.buttonText}
                       </button>
