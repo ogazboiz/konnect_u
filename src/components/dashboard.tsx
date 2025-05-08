@@ -22,7 +22,7 @@ export default function Dashboard() {
             <div className="w-full lg:w-[53%] overflow-x-hidden">
               <RevenueOverview />
             </div>
-            <div className="w-full z-50 mt-[-40px] lg:w-[47%] overflow-x-hidden">
+            <div className="w-full  mt-[-40px] lg:w-[47%] overflow-x-hidden">
               <PerformanceMetrics />
             </div>
           </div>
