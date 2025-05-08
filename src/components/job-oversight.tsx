@@ -1,62 +1,115 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { MapPin, Heart } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { MapPin, Heart } from "lucide-react";
+
+
+interface Job {
+  name: string;
+  title: string;
+  budget: string;
+  description: string;
+  location: string;
+}
 
 export default function JobOversight() {
-  const [showDateDropdown, setShowDateDropdown] = useState(false)
-  const [showJobsDropdown, setShowJobsDropdown] = useState(false)
-  const [selectedDate, setSelectedDate] = useState("Last 1 Week")
-  const [selectedJobType, setSelectedJobType] = useState("Technological jobs")
+  const [showDateDropdown, setShowDateDropdown] = useState<boolean>(false);
+  const [showJobsDropdown, setShowJobsDropdown] = useState<boolean>(false);
+  const [selectedDate, setSelectedDate] = useState<string>("Last 1 Week");
+  const [selectedJobType, setSelectedJobType] = useState<string>("Technological jobs");
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const toggleDateDropdown = () => {
-    setShowDateDropdown(!showDateDropdown)
-    if (showJobsDropdown) setShowJobsDropdown(false)
-  }
+    setShowDateDropdown((prev) => !prev);
+    if (showJobsDropdown) setShowJobsDropdown(false);
+  };
 
   const toggleJobsDropdown = () => {
-    setShowJobsDropdown(!showJobsDropdown)
-    if (showDateDropdown) setShowDateDropdown(false)
-  }
+    setShowJobsDropdown((prev) => !prev);
+    if (showDateDropdown) setShowDateDropdown(false);
+  };
 
   const selectDate = (date: string) => {
-    setSelectedDate(date)
-    setShowDateDropdown(false)
-  }
+    setSelectedDate(date);
+    setShowDateDropdown(false);
+  };
 
   const selectJobType = (type: string) => {
-    setSelectedJobType(type)
-    setShowJobsDropdown(false)
-  }
+    setSelectedJobType(type);
+    setShowJobsDropdown(false);
+  };
+
+
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      try {
+        const mockJobs: Job[] = [
+          {
+            name: "Mack Zuckerberg",
+            title: "Install Security Cameras for TechHub",
+            budget: "N4000",
+            description:
+              "A growing tech company needs a technician to install 6 CCTV cameras in their office space. The job requires running cables through walls and configuring the security system.",
+            location: "Lagos, Nigeria",
+          },
+          {
+            name: "Mack Zuckerberg",
+            title: "Install Security Cameras for TechHub",
+            budget: "N4000",
+            description:
+              "A growing tech company needs a technician to install 6 CCTV cameras in their office space. The job requires running cables through walls and configuring the security system.",
+            location: "Lagos, Nigeria",
+          },
+        ];
+        setJobs(mockJobs);
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to load jobs");
+        setLoading(false);
+        console.error("Error loading jobs:", err);
+      }
+    }, 1000);
+  }, []);
 
   return (
-    <div className="lg:w-50% ">
-    <Card className="mb-6 bg-white shadow-sm border-0">
+    <Card className="bg-white rounded-lg shadow-sm border-0">
       <CardHeader className="pb-2">
-        <CardTitle className="text-2xl font-medium text-[#1A237E]">Job Oversight</CardTitle>
+        <CardTitle className="text-xl sm:text-2xl font-medium text-[#1A237E]">
+          Job Oversight
+        </CardTitle>
       </CardHeader>
-      <CardContent>
-        <div className="flex flex-col md:flex-row gap-2 mb-4">
+      <CardContent className="p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row gap-2 mb-4">
           <div className="relative flex-1">
             <input
               type="text"
               placeholder="Search for Jobs"
-              className="w-full pl-4 pr-4 py-2 rounded-md border-[1.5px] text-[#070F65] border-[#070F65] focus:outline-none focus:ring-2 focus:ring-[#1A237E]"
+              className="w-full pl-4 pr-4 py-2 rounded-md border-[1.5px] text-[#070F65] border-[#070F65] focus:outline-none focus:ring-2 focus:ring-[#1A237E] text-sm sm:text-base"
             />
           </div>
 
-          <button className="border-[1.5px] border-[#070F65] px-4 py-2 rounded-md flex items-center justify-center gap-2 text-[#070F65]">
+          <button className="border-[1.5px] border-[#070F65] px-3 sm:px-4 py-2 rounded-md flex items-center justify-center gap-2 text-[#070F65] text-sm sm:text-base">
             Filter
           </button>
 
           <div className="relative">
             <button
-              className="border-[1.5px] border-[#070F65] px-4 py-2 rounded-md flex items-center justify-center gap-2 text-[#1A237E]"
+              className="border-[1.5px] border-[#070F65] px-3 sm:px-4 py-2 rounded-md flex items-center justify-center gap-2 text-[#1A237E] text-sm sm:text-base"
               onClick={toggleDateDropdown}
             >
               Date
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4 sm:w-5 sm:h-5"
+              >
                 <path
                   d="M6 9l6 6 6-6"
                   stroke="currentColor"
@@ -68,35 +121,47 @@ export default function JobOversight() {
             </button>
 
             {showDateDropdown && (
-              <div className="absolute z-10 left-[-100px] mt-1 w-40 bg-white border-[1.5px] border-[#1A237E]  rounded-md shadow-lg">
-                {["Last 1 Week", "Last 2 Weeks", "Last Month", "Last 5 Months"].map((date) => (
-                  <div
-                    key={date}
-                    className="p-2 hover:bg-gray-100 border-y border-[#1A237E] cursor-pointer flex items-center"
-                    onClick={() => selectDate(date)}
-                  >
+              <div className="absolute z-10 left-0 sm:left-auto sm:right-0 mt-1 w-36 sm:w-40 bg-white border-[1.5px] border-[#1A237E] rounded-md shadow-lg">
+                {["Last 1 Week", "Last 2 Weeks", "Last Month", "Last 5 Months"].map(
+                  (date) => (
                     <div
-                      className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                        selectedDate === date ? "border-b-[#1A237E]  bg-[#1A237E]" : "border-gray-300"
-                      }`}
+                      key={date}
+                      className="p-2 hover:bg-gray-100 border-y border-[#1A237E] cursor-pointer flex items-center"
+                      onClick={() => selectDate(date)}
                     >
-                      {selectedDate === date && <div className="w-3 h-3 bg-[#1A237E] border-2 border-white rounded-full"></div>}
+                      <div
+                        className={`w-4 h-4 rounded-full border flex items-center justify-center ${
+                          selectedDate === date
+                            ? "border-[#1A237E] bg-[#1A237E]"
+                            : "border-gray-300"
+                        }`}
+                      >
+                        {selectedDate === date && (
+                          <div className="w-2 h-2 bg-white rounded-full" />
+                        )}
+                      </div>
+                      <span className="ml-2 text-xs sm:text-sm">{date}</span>
                     </div>
-                    <span className="ml-2 text-sm">{date}</span>
-                    <div className="border-b-[#1A237E] border border-b-2 "/>
-                  </div>
-                ))}
+                  )
+                )}
               </div>
             )}
           </div>
 
           <div className="relative">
             <button
-              className="border-[1.5px] border-[#070F65] px-4 py-2 rounded-md flex items-center justify-center gap-2 text-[#1A237E]"
+              className="border-[1.5px] border-[#070F65] px-3 sm:px-4 py-2 rounded-md flex items-center justify-center gap-2 text-[#1A237E] text-sm sm:text-base"
               onClick={toggleJobsDropdown}
             >
               Jobs
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-4 h-4 sm:w-5 sm:h-5"
+              >
                 <path
                   d="M6 9l6 6 6-6"
                   stroke="currentColor"
@@ -108,21 +173,30 @@ export default function JobOversight() {
             </button>
 
             {showJobsDropdown && (
-              <div className="absolute z-10 left-[20px] mt-1 w-40 border-[1.5px] border-[#1A237E] rounded-lg bg-white  shadow-lg">
-                {["Technological jobs", "Business jobs", "Handy jobs", "Scientific jobs"].map((job) => (
+              <div className="absolute z-10 left-0 sm:left-auto sm:right-0 mt-1 w-36 sm:w-40 border-[1.5px] border-[#1A237E] rounded-lg bg-white shadow-lg">
+                {[
+                  "Technological jobs",
+                  "Business jobs",
+                  "Handy jobs",
+                  "Scientific jobs",
+                ].map((job) => (
                   <div
                     key={job}
-                    className="p-2  hover:bg-gray-100 border-y border-[#1A237E] cursor-pointer flex items-center"
+                    className="p-2 hover:bg-gray-100 border-y border-[#1A237E] cursor-pointer flex items-center"
                     onClick={() => selectJobType(job)}
                   >
                     <div
                       className={`w-4 h-4 rounded-full border flex items-center justify-center ${
-                        selectedJobType === job ? "border-[#1A237E] bg-[#1A237E]" : "border-gray-300"
+                        selectedJobType === job
+                          ? "border-[#1A237E] bg-[#1A237E]"
+                          : "border-gray-300"
                       }`}
                     >
-                      {selectedJobType === job && <div className="w-3 h-3 bg-[#1A237E] border-2 border-white rounded-full"><div className=""> </div></div>}
+                      {selectedJobType === job && (
+                        <div className="w-2 h-2 bg-white rounded-full" />
+                      )}
                     </div>
-                    <span className="ml-2 text-sm">{job}</span>
+                    <span className="ml-2 text-xs sm:text-sm">{job}</span>
                   </div>
                 ))}
               </div>
@@ -130,55 +204,66 @@ export default function JobOversight() {
           </div>
         </div>
 
-        <JobCard
-          name="Mack Zuckerberg"
-          title="Install Security Cameras for TechHub"
-          budget="N4000"
-          description="A growing tech company needs a technician to install 6 CCTV cameras in their office space. The job requires running cables through walls and configuring the security system."
-          location="Lagos, Nigeria"
-        />
-
-        <JobCard
-          name="Mack Zuckerberg"
-          title="Install Security Cameras for TechHub"
-          budget="N4000"
-          description="A growing tech company needs a technician to install 6 CCTV cameras in their office space. The job requires running cables through walls and configuring the security system."
-          location="Lagos, Nigeria"
-        />
+        {loading ? (
+          <div className="text-center text-[#070F65] py-4">Loading jobs...</div>
+        ) : error ? (
+          <div className="text-center text-red-600 py-4">{error}</div>
+        ) : (
+          jobs.map((job, index) => (
+            <JobCard
+              key={index}
+              name={job.name}
+              title={job.title}
+              budget={job.budget}
+              description={job.description}
+              location={job.location}
+            />
+          ))
+        )}
       </CardContent>
     </Card>
-    </div>
-  )
+  );
 }
 
+// Re-define the JobCardProps interface (already defined above, but repeated for clarity)
 interface JobCardProps {
-  name: string
-  title: string
-  budget: string
-  description: string
-  location: string
+  name: string;
+  title: string;
+  budget: string;
+  description: string;
+  location: string;
 }
 
 function JobCard({ name, title, budget, description, location }: JobCardProps) {
   return (
-    <div className="">
-      <div className="flex items-start gap-3 pb-6 mb-2">
-        <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs relative  bg-cover bg-center"  style={{ backgroundImage: "url('/EllipseAvatar4.svg')" }}>
-          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-          
+    <div className="border-b border-gray-200 pb-4 mb-4 last:border-b-0 last:mb-0">
+      <div className="flex items-start gap-3">
+        <div
+          className="w-8 h-8 rounded-full flex items-center justify-center text-xs relative bg-cover bg-center"
+          style={{ backgroundImage: "url('/EllipseAvatar4.svg')" }}
+        >
+          <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
         </div>
         <div className="flex-1">
-          <h3 className="text-[#070f65] font-semibold">{name}</h3>
-          <h4 className="text-[#070f65] font-bold text-lg">{title}</h4>
-          <div className="text-[13px] text-[#070f65]">Budget: {budget}</div>
-          <p className="text-[10px] text-[#070f65]/50 mt-1">{description}</p>
+          <h3 className="text-[#070F65] font-semibold text-sm sm:text-base">
+            {name}
+          </h3>
+          <h4 className="text-[#070F65] font-bold text-base sm:text-lg">
+            {title}
+          </h4>
+          <div className="text-[12px] sm:text-[13px] text-[#070F65]">
+            Budget: {budget}
+          </div>
+          <p className="text-[10px] sm:text-sm text-[#070F65]/50 mt-1">
+            {description}
+          </p>
           <div className="mt-1">
-            <a href="#" className="text-green-600 text-sm">
+            <a href="#" className="text-green-600 text-xs sm:text-sm">
               View More...
             </a>
           </div>
           <div className="flex items-center gap-4 mt-2">
-            <div className="flex items-center gap-1 text-sm text-gray-500">
+            <div className="flex items-center gap-1 text-xs sm:text-sm text-gray-500">
               <MapPin className="h-4 w-4" />
               {location}
             </div>
@@ -186,10 +271,8 @@ function JobCard({ name, title, budget, description, location }: JobCardProps) {
               <Heart className="h-4 w-4" />
             </button>
           </div>
-       
-      </div>
+        </div>
       </div>
     </div>
-   
-  )
+  );
 }
