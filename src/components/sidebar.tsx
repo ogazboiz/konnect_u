@@ -6,7 +6,7 @@ import { LayoutGrid, Settings } from "lucide-react"
 export default function Sidebar() {
   return (
     // w-48 bg-white rounded-lg m-2 flex flex-co
-    <div className="w-56 bg-gray-50 border-r my-2 ml-2 rounded-lg border-green-700 flex flex-col ">
+    <div className="min-w-56 bg-gray-50 border-r my-2 ml-2 rounded-lg border-green-700 flex flex-col ">
       <div className="p-4 mb-4">
         <Image src="/KONNECTU.svg" alt="KonnectU Logo" width={120} height={80} className="mx-auto" />
       </div>
@@ -72,7 +72,7 @@ interface SubMenuItemProps {
 function SubMenuItem({ label }: SubMenuItemProps) {
   return (
     <div className="flex items-center gap-2 text-sm text-[#006A05]/60">
-      <div className="w-5 h-5 flex items-center justify-center">
+      <div className=" ml-3 w-5 h-5 flex items-center justify-center">
             <div className="w-3 h-3 rounded-full border-3 border-[#006A05]/60"></div>
       </div>
       <span>{label}</span>

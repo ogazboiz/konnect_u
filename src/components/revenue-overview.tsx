@@ -61,7 +61,7 @@ export default function RevenueOverview() {
                     <div className="absolute inset-0 flex items-end px-1">
                       <div className="w-full h-full flex items-end justify-around">
                         <div 
-                          className="w-5/12 bg-yellow-400" style={{ height: `${month.yellow}%` }}    />
+                          className="w-5/12 bg-[#F8FB00]" style={{ height: `${month.yellow}%` }}    />
                         <div className="w-5/12 bg-blue-500"   style={{ height: `${month.blue}%` }}    />
                       </div>
                     </div>

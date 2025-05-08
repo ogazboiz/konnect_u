@@ -163,7 +163,7 @@ function JobCard({ name, title, budget, description, location }: JobCardProps) {
   return (
     <div className="">
       <div className="flex items-start gap-3 pb-6 mb-2">
-        <div className="w-8 h-8 rounded-full bg-url() bg-gray-100 flex items-center justify-center text-xs relative">
+        <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs relative  bg-cover bg-center"  style={{ backgroundImage: "url('/EllipseAvatar4.svg')" }}>
           <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
           
         </div>

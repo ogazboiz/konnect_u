@@ -9,7 +9,7 @@ import PopularTaskSpecialist from "./popular-task-specialist";
 
 export default function Dashboard() {
   return (
-    <div className="flex h-screen  mx-auto bg-green-700">
+    <div className="flex h-screen   mx-auto bg-green-700">
       <Sidebar />
       <div className="flex-1 flex flex-col">
         <Header />
