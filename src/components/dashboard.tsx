@@ -22,12 +22,12 @@ export default function Dashboard() {
             <div className="w-full lg:w-[53%] overflow-x-hidden">
               <RevenueOverview />
             </div>
-            <div className="w-full z-50 mt-[-20px] lg:w-[47%] overflow-x-hidden">
+            <div className="w-full z-50 mt-[-40px] lg:w-[47%] overflow-x-hidden">
               <PerformanceMetrics />
             </div>
           </div>
 
-          {/* Second Row: JobOversight and Right Column (AccountManagement, PopularTaskSpecialist) */}
+            {/* Second Row: JobOversight and AccountManagement + PopularTaskSpecialist */}
           <div className="flex flex-col gap-3 lg:flex-row lg:gap-6">
             <div className="w-full lg:w-1/2 overflow-x-hidden">
               <JobOversight />
