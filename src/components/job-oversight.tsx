@@ -80,7 +80,7 @@ export default function JobOversight() {
                         selectedDate === date ? "border-b-[#1A237E]  bg-[#1A237E]" : "border-gray-300"
                       }`}
                     >
-                      {selectedDate === date && <div className="w-2 h-2 bg-white rounded-full"></div>}
+                      {selectedDate === date && <div className="w-3 h-3 bg-[#1A237E] border-2 border-white rounded-full"></div>}
                     </div>
                     <span className="ml-2 text-sm">{date}</span>
                     <div className="border-b-[#1A237E] border border-b-2 "/>
@@ -161,17 +161,17 @@ interface JobCardProps {
 
 function JobCard({ name, title, budget, description, location }: JobCardProps) {
   return (
-    <div className="border-b border-gray-200 pb-4 mb-4">
-      <div className="flex items-start gap-3 mb-2">
-        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs relative">
+    <div className="">
+      <div className="flex items-start gap-3 pb-6 mb-2">
+        <div className="w-8 h-8 rounded-full bg-url() bg-gray-100 flex items-center justify-center text-xs relative">
           <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-          MZ
+          
         </div>
         <div className="flex-1">
           <h3 className="text-[#070f65] font-semibold">{name}</h3>
           <h4 className="text-[#070f65] font-bold text-lg">{title}</h4>
           <div className="text-[13px] text-[#070f65]">Budget: {budget}</div>
-          <p className="text-sm text-[#070f65]/50 mt-1">{description}</p>
+          <p className="text-[10px] text-[#070f65]/50 mt-1">{description}</p>
           <div className="mt-1">
             <a href="#" className="text-green-600 text-sm">
               View More...
